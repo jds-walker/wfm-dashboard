@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {VictoryChart, VictoryBar, VictoryTheme } from 'victory';
-import {xml} from '../Data'
+import {xml} from '../Data';
+import xml2js from 'xml2js';
 
-var parseString = require('xml2js').parseString;
-parseString(xml, function (err, result) {
+const parser = new xml2js.Parser()
+
+let mapData = []
+
+parser.parseString(xml, function (err, result) {
     const data = result.Response.Times[0].Time;
 
-    const mapData = data.map((obj) => {
+    let mapData = data.map((obj) => {
         return (
         {'Date': obj.Date[0], 
         'Minutes': obj.Minutes[0]})
@@ -15,7 +19,7 @@ parseString(xml, function (err, result) {
 });
 
 
-
+console.log(mapData)
 
 const sampleData = [
     {x: 1, y: 2},
